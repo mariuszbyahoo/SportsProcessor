@@ -1,20 +1,17 @@
-using System;
-using System.Security.Cryptography;
 using System.Text.Json;
 using SportsProcessor.Contracts;
-using SportsProcessor.Models.Input;
 
 namespace SportsProcessor;
 
 public class SportsDataProcessor : ISportsDataProcessor
 {
-    private readonly IInternalProcessor _internalProcessor;
-    private readonly IDataLoader _dataLoader;
+    private readonly InternalProcessor _internalProcessor;
+    private readonly DataLoader _dataLoader;
 
-    public SportsDataProcessor(IInternalProcessor internalProcessor, IDataLoader dataLoader)
+    public SportsDataProcessor()
     {
-        _internalProcessor = internalProcessor;
-        _dataLoader = dataLoader;
+        _internalProcessor = new InternalProcessor();
+        _dataLoader = new DataLoader();
     }
 
     public string ProcessData(string summaryJson, string lapsJson, string samplesJson)

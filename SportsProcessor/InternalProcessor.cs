@@ -1,13 +1,12 @@
-using SportsProcessor.Contracts;
 using SportsProcessor.Models.Input;
 using SportsProcessor.Models.Output;
 
 namespace SportsProcessor;
 
-public class InternalProcessor : IInternalProcessor
+public class InternalProcessor
 {
 
-    public ProcessedActivity Process(ActivitySummary activitySummary, List<LapData> laps, List<SampleData> sampleDatas)
+    internal ProcessedActivity Process(ActivitySummary activitySummary, List<LapData> laps, List<SampleData> sampleDatas)
     {
         var result = new ProcessedActivity
         {

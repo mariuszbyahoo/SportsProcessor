@@ -1,11 +1,9 @@
-using System;
 using System.Text.Json;
-using SportsProcessor.Contracts;
 using SportsProcessor.Models.Input;
 
 namespace SportsProcessor;
 
-public class DataLoader : IDataLoader
+internal class DataLoader
 {
     public List<LapData> LoadLapData(string json)
     {
