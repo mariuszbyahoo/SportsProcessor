@@ -1,3 +1,4 @@
+using FluentAssertions;
 using SportsProcessor.Models.Input;
 
 namespace SportsProcessor.Tests;
@@ -13,7 +14,7 @@ public class InternalProcessorTests
     }
 
     [Test]
-    public void Test1()
+    public void Process_EvenWhenEmptyInputClassesWillBePassedIn_WillNotThrowAnyExceptionAndResultWithNotNullObject()
     {
         var activitySummary = new ActivitySummary();
         var lapDataList = new List<LapData>();
@@ -21,6 +22,6 @@ public class InternalProcessorTests
 
         var result = _processor.Process(activitySummary, lapDataList, sampleDataList);
 
-        
+        result.Should().NotBeNull();
     }
 }
