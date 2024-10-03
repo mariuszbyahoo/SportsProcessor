@@ -1,18 +1,40 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace SportsProcessor.Models.Input;
-
 public class ActivitySummary
 {
-    public string UserId { get; set; }  
-    public long ActivityId { get; set; } 
-    public string ActivityName { get; set; } 
-    public int DurationInSeconds { get; set; } 
-    public long StartTimeInSeconds { get; set; } 
-    public int StartTimeOffsetInSeconds { get; set; } 
-    public string ActivityType { get; set; } 
-    public int AverageHeartRateInBeatsPerMinute { get; set; } 
-    public int ActiveKilocalories { get; set; } 
-    public string DeviceName { get; set; } 
-    public int MaxHeartRateInBeatsPerMinute { get; set; } 
+    [JsonPropertyName("userId")]
+    public string UserId { get; set; }
+
+    [JsonPropertyName("activityId")]
+    public long ActivityId { get; set; }
+
+    [JsonPropertyName("activityName")]
+    public string ActivityName { get; set; }
+
+    [JsonPropertyName("durationInSeconds")]
+    public int DurationInSeconds { get; set; }
+
+    [JsonPropertyName("startTimeInSeconds")]
+    public long StartTimeInSeconds { get; set; }
+
+    [JsonPropertyName("startTimeOffsetInSeconds")]
+    public int StartTimeOffsetInSeconds { get; set; }
+
+    [JsonPropertyName("activityType")]
+    public string ActivityType { get; set; }
+
+    [JsonPropertyName("averageHeartRateInBeatsPerMinute")]
+    public int AverageHeartRateInBeatsPerMinute { get; set; }
+
+    [JsonPropertyName("activeKilocalories")]
+    public int ActiveKilocalories { get; set; }
+
+    [JsonPropertyName("deviceName")]
+    public string DeviceName { get; set; }
+
+    [JsonPropertyName("maxHeartRateInBeatsPerMinute")]
+    public int MaxHeartRateInBeatsPerMinute { get; set; }
 }
+

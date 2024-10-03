@@ -1,12 +1,22 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace SportsProcessor.Models.Input;
 
 public class LapData
 {
-    public long StartTimeInSeconds { get; set; }  
-    public int AirTemperatureCelsius { get; set; }  
-    public int HeartRate { get; set; }  
-    public double TotalDistanceInMeters { get; set; } 
-    public int TimerDurationInSeconds { get; set; } 
+    [JsonPropertyName("startTimeInSeconds")]
+    public long StartTimeInSeconds { get; set; }
+
+    [JsonPropertyName("airTemperatureCelsius")]
+    public int AirTemperatureCelsius { get; set; }
+
+    [JsonPropertyName("heartRate")]
+    public int HeartRate { get; set; }
+
+    [JsonPropertyName("totalDistanceInMeters")]
+    public double TotalDistanceInMeters { get; set; }
+
+    [JsonPropertyName("timerDurationInSeconds")]
+    public int TimerDurationInSeconds { get; set; }
 }

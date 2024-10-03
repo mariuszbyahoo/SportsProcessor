@@ -40,7 +40,6 @@ public class InternalProcessor
                     index ++;
                 }
             }
-            // dwa DataSample na jedno okrązenie 
             result.Laps.Add(new ProcessedLap
             {
                 Distance = lap.TotalDistanceInMeters,
