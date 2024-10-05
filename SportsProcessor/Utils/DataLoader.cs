@@ -12,16 +12,38 @@ internal class DataLoader
 {
     internal List<LapData> LoadLapData(string json)
     {
-        return JsonSerializer.Deserialize<List<LapData>>(json);
+        try
+        {
+            return JsonSerializer.Deserialize<List<LapData>>(json);
+        }
+        catch (JsonException ex)
+        {
+            return new List<LapData>();
+        }
     }
 
     internal List<SampleData> LoadSamples(string json)
     {
-        return JsonSerializer.Deserialize<List<SampleData>>(json);
+        try
+        {
+            return JsonSerializer.Deserialize<List<SampleData>>(json);
+        }
+        catch (JsonException ex)
+        {
+            return new List<SampleData>();
+        }
     }
 
     internal ActivitySummary LoadSummary(string json)
     {
-        return JsonSerializer.Deserialize<ActivitySummary>(json);
+        try
+        {
+            return JsonSerializer.Deserialize<ActivitySummary>(json);
+        }
+        catch (JsonException ex)
+        {
+            // in this case we can assume that json passed inside of the method was an empty string or had unappropriate tokens
+            return new ActivitySummary();
+        }
     }
 }

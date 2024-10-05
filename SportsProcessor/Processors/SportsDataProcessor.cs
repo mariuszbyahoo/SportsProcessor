@@ -20,10 +20,13 @@ public class SportsDataProcessor : ISportsDataProcessor
         var activitySummary = _dataLoader.LoadSummary(summaryJson);
         var lapsData = _dataLoader.LoadLapData(lapsJson);
         var samplesData = _dataLoader.LoadSamples(samplesJson);
+        
+        // no risk of any input or ouptut data being null - 
+        // DataLoader.Load() always will return T being not null 
+        // ( whereas props of the result object can be null)
 
         var result = _internalProcessor.Process(activitySummary, lapsData, samplesData);
 
-        if(result == null) return string.Empty;
-        else return JsonSerializer.Serialize(result);
+        return JsonSerializer.Serialize(result);
     }
 }
