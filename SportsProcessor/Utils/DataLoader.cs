@@ -1,7 +1,7 @@
 using System.Text.Json;
 using SportsProcessor.Models.Input;
 
-namespace SportsProcessor;
+namespace SportsProcessor.Utils;
 
 /// <summary>
 /// Class contains methods being a wrapper around JsonSerializer.Deserialize<T>(string).

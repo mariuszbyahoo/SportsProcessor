@@ -1,5 +1,6 @@
 using System;
 using FluentAssertions;
+using SportsProcessor.Processors;
 
 namespace SportsProcessor.Tests;
 

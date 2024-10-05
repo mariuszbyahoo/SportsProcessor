@@ -2,7 +2,7 @@ using SportsProcessor.Extensions;
 using SportsProcessor.Models.Input;
 using SportsProcessor.Models.Output;
 
-namespace SportsProcessor;
+namespace SportsProcessor.Processors;
 
 /// <summary>
 /// This class is being public (in the opposite to DataLoader) due to problems I faced when writing tests for this class.

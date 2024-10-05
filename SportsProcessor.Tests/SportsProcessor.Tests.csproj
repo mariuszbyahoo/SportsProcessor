@@ -26,5 +26,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SportsProcessor\SportsProcessor.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TestResults/" />
+  </ItemGroup>
 
 </Project>

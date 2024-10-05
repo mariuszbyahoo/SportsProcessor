@@ -1,7 +1,8 @@
 using System.Text.Json;
 using SportsProcessor.Contracts;
+using SportsProcessor.Utils;
 
-namespace SportsProcessor;
+namespace SportsProcessor.Processors;
 
 public class SportsDataProcessor : ISportsDataProcessor
 {

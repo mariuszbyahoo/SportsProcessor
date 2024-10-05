@@ -1,5 +1,6 @@
 using FluentAssertions;
 using SportsProcessor.Models.Input;
+using SportsProcessor.Processors;
 
 namespace SportsProcessor.Tests;
 
