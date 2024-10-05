@@ -4,6 +4,9 @@ using SportsProcessor.Models.Output;
 
 namespace SportsProcessor;
 
+/// <summary>
+/// This class is being public (in the opposite to DataLoader) due to problems I faced when writing tests for this class.
+/// </summary>
 public class InternalProcessor
 {
 

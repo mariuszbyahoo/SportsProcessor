@@ -10,17 +10,17 @@ namespace SportsProcessor;
 /// </summary>
 internal class DataLoader
 {
-    public List<LapData> LoadLapData(string json)
+    internal List<LapData> LoadLapData(string json)
     {
         return JsonSerializer.Deserialize<List<LapData>>(json);
     }
 
-    public List<SampleData> LoadSamples(string json)
+    internal List<SampleData> LoadSamples(string json)
     {
         return JsonSerializer.Deserialize<List<SampleData>>(json);
     }
 
-    public ActivitySummary LoadSummary(string json)
+    internal ActivitySummary LoadSummary(string json)
     {
         return JsonSerializer.Deserialize<ActivitySummary>(json);
     }
