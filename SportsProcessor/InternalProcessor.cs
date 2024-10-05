@@ -9,7 +9,7 @@ public class InternalProcessor
 
     internal ProcessedActivity? Process(ActivitySummary activitySummary, List<LapData> laps, List<SampleData> sampleDatas)
     {
-        if(activitySummary == null)
+        if(activitySummary == null || laps == null || sampleDatas == null)
         {
             return null;
         }
