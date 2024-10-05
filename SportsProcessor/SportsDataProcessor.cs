@@ -22,6 +22,7 @@ public class SportsDataProcessor : ISportsDataProcessor
 
         var result = _internalProcessor.Process(activitySummary, lapsData, samplesData);
 
-        return JsonSerializer.Serialize(result);
+        if(result == null) return string.Empty;
+        else return JsonSerializer.Serialize(result);
     }
 }

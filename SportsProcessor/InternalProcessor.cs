@@ -7,8 +7,12 @@ namespace SportsProcessor;
 public class InternalProcessor
 {
 
-    internal ProcessedActivity Process(ActivitySummary activitySummary, List<LapData> laps, List<SampleData> sampleDatas)
+    internal ProcessedActivity? Process(ActivitySummary activitySummary, List<LapData> laps, List<SampleData> sampleDatas)
     {
+        if(activitySummary == null)
+        {
+            return null;
+        }
         var result = new ProcessedActivity
         {
             UserId = activitySummary.UserId,
@@ -37,16 +41,19 @@ public class InternalProcessor
             var samplesList = new List<HeartRateSample>();
             foreach (var sample in samples) 
             {
-                foreach (var sampleData in sample.DataList)
+                if(sample != null)
                 {
-                    if(sampleData.HasValue) 
+                    foreach (var sampleData in sample.DataList)
                     {
-                        samplesList.Add(new HeartRateSample()
-                            { 
-                                HeartRate = sampleData.Value, 
-                                SampleIndex = index 
-                            });
-                        index ++;
+                        if(sampleData.HasValue) 
+                        {
+                            samplesList.Add(new HeartRateSample()
+                                { 
+                                    HeartRate = sampleData.Value, 
+                                    SampleIndex = index 
+                                });
+                            index ++;
+                        }
                     }
                 }
             }
