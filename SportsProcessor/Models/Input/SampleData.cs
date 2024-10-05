@@ -1,5 +1,6 @@
 using System;
 using System.Text.Json.Serialization;
+using SportsProcessor.Utils;
 
 namespace SportsProcessor.Models.Input;
 
@@ -9,22 +10,10 @@ public class SampleData
     public int RecordingRate { get; set; }
 
     [JsonPropertyName("sample-type")]
-    public int SampleType { get; set; }
-
-    private string _data;
+    public string SampleType { get; set; }
 
     [JsonPropertyName("data")]
-    public string Data
-    {
-        get => _data;
-        set
-        {
-            _data = value;
-            DataList = _data.Split(',').Select(digit => int.TryParse(digit, out var num) ? (int?)num : null).ToList();
-        }
-    }
-
-    [JsonIgnore]
+    [JsonConverter(typeof(CommaSeparatedStringToListConverter))]
     public List<int?> DataList { get; set; }
 }
 

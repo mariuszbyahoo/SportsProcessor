@@ -1,3 +1,4 @@
+using SportsProcessor.Extensions;
 using SportsProcessor.Models.Input;
 using SportsProcessor.Models.Output;
 
@@ -16,28 +17,37 @@ public class InternalProcessor
             MaxHeartRate = activitySummary.MaxHeartRateInBeatsPerMinute,
             Laps = new List<ProcessedLap>()
         };
-        var dataSamples = sampleDatas.Where(s => s.SampleType == 2).ToList();
+        var dataSamples = sampleDatas.Where(s => s.SampleType.Equals("2")).ToList();
         /*
-            We're only interested in heart rate samples, type == 2
+            We're only interested in heart rate samples, type == "2"
             Due to the lack of any timezone data within HeartRateSample, 
-            to make it clear on which sample to assign to which lap, I 
-            will use FIFO then. (first lap in the set has two first samples from sample data set)
+            I will assign first lap in the set to the two first samples from sample data set
+
+            Also, when the HeartRateSample is null, I am considering it as an readout anomaly 
+            And I am ignoring those and omitting them in the end result
         */
         foreach (var lap in laps)
         {
             int index = 0;
             var samples = new SampleData[] 
             { 
-                dataSamples.FirstOrDefault(),
-                dataSamples.FirstOrDefault() 
+                dataSamples.Pop(),
+                dataSamples.Pop() 
             };
             var samplesList = new List<HeartRateSample>();
             foreach (var sample in samples) 
             {
-                foreach (var sampleData in sample.Data)
+                foreach (var sampleData in sample.DataList)
                 {
-                    samplesList.Add(new HeartRateSample(){ HeartRate = sampleData, SampleIndex = index });
-                    index ++;
+                    if(sampleData.HasValue) 
+                    {
+                        samplesList.Add(new HeartRateSample()
+                            { 
+                                HeartRate = sampleData.Value, 
+                                SampleIndex = index 
+                            });
+                        index ++;
+                    }
                 }
             }
             result.Laps.Add(new ProcessedLap
