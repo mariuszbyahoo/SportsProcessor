@@ -19,3 +19,6 @@ obj/
 *.pdb
 *.cache
 *.log
+
+# Ignore test results
+TestResults/
