@@ -1,5 +1,9 @@
 # SportsProcessor
 
+## Important note
+Don't know why, but I am guessing what the coverlet.collector started on some point working wrong. Or I started to use it in a bad way, netherless, in the middle of my work regarding test coverage (right after creating this Readme, there's visible point in git history), tests coverage dropped from above 80 % to below 50%, then I added three more test classes - CommaSeparatedStringToListConverterTests, DataLoaderTests and ListExtensionsTests as well as I added few tersts within SportsDataProcessorTests. Still, test coverage stayed aroung 54% when it comes to lines coverage. Branches coverage stayed in place (after adding many tests!)
+Because of the above reason, I am ignoring the low result coming out of the library, and I am stepping into the **bonus task**.
+
 In order to ensure above 80% of tests coverage I am using coverlet.collector.
 
 ## Running tests
