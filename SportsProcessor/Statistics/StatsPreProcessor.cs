@@ -9,7 +9,7 @@ public class StatsPreProcessor
         var parsedData = ParseData(rawInput);
         var cleanedData = RemoveOutliersAndSort(parsedData);
 
-        var interpolatedData = ReverseAggregationAndInterpolate(cleanedData);
+        var interpolatedData = ReverseAggregationAndInterpolateData(cleanedData);
 
         // var normalizedData = NormalizeData(InterpolatedData);
         return interpolatedData;
@@ -95,31 +95,26 @@ public class StatsPreProcessor
         throw new InvalidOperationException("Coś przekombinowałem...");
     }
 
-    private List<double> ReverseAggregationAndInterpolate(List<double> medians)
+    private List<double> ReverseAggregationAndInterpolateData(List<double> medians)
     {
-        // HACK TODO: Te mediany muszą być posortowane od najnizszego do najwyzszego
         var interpolatedValues = new List<double>();
 
-        // chcę aby spomiędzy median wejściowych (lista 5ciu liczb)
-        // wydzielić jeszcze cztery liczby i je tam wsadzić pomiedzy
-        // czyli dla 2 i 3 
-        // zrobić 2 2,25 2,5 2,75 3
-        // Do tego skorzystaj ze  wzoru:
-        // y = x1 + i * (x2 - x1)/n
-        // i -> iteracja
-        // n -> liczba następujących po sobie kroków, tutaj - 5
-        for(int i = 0; i < medians.Count; i ++)
+        // n represents the number of total points, including the original 2 medians and the interpolated 3 points.
+        int n = 5;
+
+        for (int i = 0; i < medians.Count - 1; i++)
         {
-            if(i == 0 || i == medians.Count-1) 
+            double startValue = medians[i];
+            double endValue = medians[i + 1];
+
+            // Interpolate `n-1` values between each pair of consecutive medians
+            for (int j = 0; j < n; j++)
             {
-                interpolatedValues.Add(medians[i]); // wartości skrajne
-                continue; // do następnej iteracji
-            }   
-            throw new NotImplementedException("Dodaj drugą pętlę wewnątrz. Tam dodasz trzy brakujące elementy spomiędzy     medians[i] oraz medians[i+1]");
-            var res = medians[i] + (i) * ((medians[i+1] - medians[i]) / 5); 
-            // no i teraz potrzebuję jeszcze trzech wartości spomiędzy dwóch skrajnych
-            interpolatedValues.Add(res);
+                double interpolatedValue = startValue + (endValue - startValue) * (j / (double)(n - 1));
+                interpolatedValues.Add(interpolatedValue);
+            }
         }
+
         return interpolatedValues;
     }
 }
