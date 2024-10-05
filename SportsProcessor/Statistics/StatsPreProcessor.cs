@@ -4,6 +4,13 @@ namespace SportsProcessor.Statistics;
 
 public class StatsPreProcessor
 {
+    /// <summary>
+    /// Removes outliers from the input data, cleans it of corrupted data entries, 
+    /// reverse aggregates and interpolates and finally - normlaizes data with min max 
+    /// method to receive data representation from between 0 and 1
+    /// </summary>
+    /// <param name="rawInput">list of values to preprocess</param>
+    /// <returns>normalized data</returns>
     public List<double> ProcessData(List<string> rawInput)
     {
         var parsedData = ParseData(rawInput);
@@ -11,8 +18,9 @@ public class StatsPreProcessor
 
         var interpolatedData = ReverseAggregationAndInterpolateData(cleanedData);
 
-        // var normalizedData = NormalizeData(InterpolatedData);
-        return interpolatedData;
+        var normalizedData = NormalizeData(interpolatedData);
+
+        return normalizedData;
     }
 
     private List<double> ParseData(List<string> rawInput)
@@ -116,5 +124,19 @@ public class StatsPreProcessor
         }
 
         return interpolatedValues;
+    }
+
+    /// <summary>
+    /// Przy uzyciu metody min max normalizuje dane do postaci z pomiedzy 0 i 1
+    /// </summary>
+    /// <param name="interpolatedData"></param>
+    /// <returns></returns>
+    private List<double> NormalizeData(List<double> interpolatedData)
+    {
+        var vmin = interpolatedData.Min();
+        var vmax = interpolatedData.Max();
+
+        var res = interpolatedData.Select(x => (x - vmin) / (vmax - vmin)).ToList();
+        return res;
     }
 }
