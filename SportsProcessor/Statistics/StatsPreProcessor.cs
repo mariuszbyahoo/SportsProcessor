@@ -1,7 +1,4 @@
-using System;
 using System.Data;
-using System.Security.Cryptography.X509Certificates;
-using Microsoft.VisualBasic;
 
 namespace SportsProcessor.Statistics;
 
@@ -10,13 +7,12 @@ public class StatsPreProcessor
     public List<double> ProcessData(List<string> rawInput)
     {
         var parsedData = ParseData(rawInput);
-        var cleanedData = RemoveOutliers(parsedData);
+        var cleanedData = RemoveOutliersAndSort(parsedData);
 
-        // var InterpolatedData = InterpolatedData(cleanedData);
+        var interpolatedData = ReverseAggregationAndInterpolate(cleanedData);
 
         // var normalizedData = NormalizeData(InterpolatedData);
-        throw new NotImplementedException();
-        // return normalizedData;
+        return interpolatedData;
     }
 
     private List<double> ParseData(List<string> rawInput)
@@ -39,7 +35,7 @@ public class StatsPreProcessor
         return res;
     }
 
-    private List<double> RemoveOutliers(List<double> input)
+    private List<double> RemoveOutliersAndSort(List<double> input)
     {
         // Z-Score
         var average = input.Average();
@@ -49,7 +45,7 @@ public class StatsPreProcessor
         // Pierwiastek ze średniego rozproszeniaWartosciWStosunkuDoSredniej, czyli Odchylenie Standardowe :
         var standardDeviation = Math.Sqrt(rozproszenieWartosciWStosunkuDoSredniej); 
         // Usuwamy liczby dla których ZScore jest większy bądź równy od 3
-        return input.Where(x => GetZScore(x, average, standardDeviation) <= 3).ToList();
+        return [.. input.Where(x => GetZScore(x, average, standardDeviation) <= 3).OrderBy(x => x)];
     }
 
     private double GetZScore(double input, double average, double standardDeviation)
@@ -97,5 +93,33 @@ public class StatsPreProcessor
             return (previousValue.Value + nextValue.Value) / 2.0;
         }
         throw new InvalidOperationException("Coś przekombinowałem...");
+    }
+
+    private List<double> ReverseAggregationAndInterpolate(List<double> medians)
+    {
+        // HACK TODO: Te mediany muszą być posortowane od najnizszego do najwyzszego
+        var interpolatedValues = new List<double>();
+
+        // chcę aby spomiędzy median wejściowych (lista 5ciu liczb)
+        // wydzielić jeszcze cztery liczby i je tam wsadzić pomiedzy
+        // czyli dla 2 i 3 
+        // zrobić 2 2,25 2,5 2,75 3
+        // Do tego skorzystaj ze  wzoru:
+        // y = x1 + i * (x2 - x1)/n
+        // i -> iteracja
+        // n -> liczba następujących po sobie kroków, tutaj - 5
+        for(int i = 0; i < medians.Count; i ++)
+        {
+            if(i == 0 || i == medians.Count-1) 
+            {
+                interpolatedValues.Add(medians[i]); // wartości skrajne
+                continue; // do następnej iteracji
+            }   
+            throw new NotImplementedException("Dodaj drugą pętlę wewnątrz. Tam dodasz trzy brakujące elementy spomiędzy     medians[i] oraz medians[i+1]");
+            var res = medians[i] + (i) * ((medians[i+1] - medians[i]) / 5); 
+            // no i teraz potrzebuję jeszcze trzech wartości spomiędzy dwóch skrajnych
+            interpolatedValues.Add(res);
+        }
+        return interpolatedValues;
     }
 }
