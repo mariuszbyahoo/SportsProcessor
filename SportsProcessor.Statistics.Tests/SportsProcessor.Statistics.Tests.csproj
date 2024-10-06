@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SportsProcessor.Statistics\SportsProcessor.Statistics.csproj" />
+    <ProjectReference Include="..\SportsProcessor\SportsProcessor.csproj" />
   </ItemGroup>
 
 </Project>

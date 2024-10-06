@@ -14,7 +14,7 @@ public class StatsPreProcessor
     public List<double> ProcessData(List<string> rawInput)
     {
         var parsedData = ParseData(rawInput);
-        var cleanedData = RemoveOutliersAndSort(parsedData);
+        var cleanedData = RemoveOutliersAndClean(parsedData);
 
         var interpolatedData = ReverseAggregationAndInterpolateData(cleanedData);
 
@@ -43,7 +43,7 @@ public class StatsPreProcessor
         return res;
     }
 
-    private List<double> RemoveOutliersAndSort(List<double> input)
+    private List<double> RemoveOutliersAndClean(List<double> input)
     {
         // Z-Score
         var average = input.Average();
@@ -53,7 +53,7 @@ public class StatsPreProcessor
         // Pierwiastek ze średniego rozproszeniaWartosciWStosunkuDoSredniej, czyli Odchylenie Standardowe :
         var standardDeviation = Math.Sqrt(rozproszenieWartosciWStosunkuDoSredniej); 
         // Usuwamy liczby dla których ZScore jest większy bądź równy od 3
-        return [.. input.Where(x => GetZScore(x, average, standardDeviation) <= 3).OrderBy(x => x)];
+        return [.. input.Where(x => GetZScore(x, average, standardDeviation) <= 3)];
     }
 
     private double GetZScore(double input, double average, double standardDeviation)
