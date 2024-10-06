@@ -1,4 +1,4 @@
-using System;
+
 using SportsProcessor.Statistics;
 
 namespace SportsProcessor.Tests;
