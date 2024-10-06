@@ -18,9 +18,7 @@ public class StatsPreProcessor
 
         var interpolatedData = ReverseAggregationAndInterpolateData(cleanedData);
 
-        var normalizedData = NormalizeData(interpolatedData);
-
-        return normalizedData;
+        return interpolatedData;
     }
 
     private List<double> ParseData(List<string> rawInput)
@@ -124,19 +122,5 @@ public class StatsPreProcessor
         }
 
         return interpolatedValues;
-    }
-
-    /// <summary>
-    /// Przy uzyciu metody min max normalizuje dane do postaci z pomiedzy 0 i 1
-    /// </summary>
-    /// <param name="interpolatedData"></param>
-    /// <returns></returns>
-    private List<double> NormalizeData(List<double> interpolatedData)
-    {
-        var vmin = interpolatedData.Min();
-        var vmax = interpolatedData.Max();
-
-        var res = interpolatedData.Select(x => (x - vmin) / (vmax - vmin)).ToList();
-        return res;
     }
 }

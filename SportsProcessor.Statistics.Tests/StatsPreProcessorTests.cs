@@ -27,13 +27,16 @@ public class StatsPreProcessorTests
     [Test]
     public void DebugMyPreProcessor()
     {
+        var modelTrainer = new ModelTrainer(new DataPreparator());
         var consolidatedProcessedActivity = JsonSerializer.Deserialize<ProcessedActivity>(
             _processor.ProcessData(_testActivitySummaryJson, _testLapDataListJson, _testSampleDataListJson));
         var heartRateSamples = $"{string.Join(',', consolidatedProcessedActivity.Laps[0].HeartRateSamples.Select(s => s.HeartRate))}," 
             + $"{string.Join(',', consolidatedProcessedActivity.Laps[1].HeartRateSamples.Select(s => s.HeartRate))}";
 
         var statsPreProcessor = new StatsPreProcessor();
-        var prepareForMLModelTraining = statsPreProcessor.ProcessData(heartRateSamples.Split(',').ToList());
-        var stringIntegers = string.Join(',', prepareForMLModelTraining);
+        var dataPreparedForMLModelTraining = statsPreProcessor.ProcessData(heartRateSamples.Split(',').ToList());
+        var stringIntegers = string.Join(',', dataPreparedForMLModelTraining);
+
+        var metrics = modelTrainer.TrainAndEvaluateModel(dataPreparedForMLModelTraining);
     }
 }

@@ -5,7 +5,7 @@ namespace SportsProcessor.Statistics;
 
 public class DataPreparator
 {
-    public List<HeartRateData> CreateTrainingData(List<double> heartRateData, int windowSize = 10)
+    public List<HeartRateData> TakeDataChunkForMLProcessing(List<double> heartRateData, int windowSize = 10)
     {
         var trainingData = new List<HeartRateData>();
 
