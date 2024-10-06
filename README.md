@@ -1,7 +1,9 @@
 # SportsProcessor
 
 # Main task
-The main task is to take the input data, load it into the library, and then process it where the output will be one consolidated JSON containing data without outliers and "dirty data" like records kind of `null`.
+The main task is to take the input data, load it into the library, and then process it where the output will be one consolidated JSON containing data without outliers and "dirty data" like records kind of `null`. 
+
+Main task is being solved by the code within `SportsProcessor` project
 
 ## Running unit tests
 1. build SportsProcessor.Tests
@@ -21,7 +23,7 @@ The main task is to take the input data, load it into the library, and then proc
 
 ## Projects within bonus task
 1. SportsProcessor.Statistics - contains classes and code related to data pre-processing and training the model.
-2. SportsProcessor.Statistics.Tests - in real, it is rather an executable for me to just run the code and see it in action - Couldn't make it working propperly though.
+2. SportsProcessor.Statistics.Tests - Due to the fact I were unable to solve exception issues mentioned below I got rid of it as there were no tests, rather I had used it as a mere executable to run my code and inspect it's outcome.
 
 I were able to prepare the dataset using `StatsPreProcessor` class - it contains all of the code necessary to perform first part of bonus task as mentioned in the task : 
 
