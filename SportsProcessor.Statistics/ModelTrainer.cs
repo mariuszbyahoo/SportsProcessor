@@ -22,8 +22,8 @@ public class ModelTrainer
         var firstHalf = preparedDataForMLModelTraining.Take(halfCount).ToList();
         var secondHalf = preparedDataForMLModelTraining.Skip(halfCount).ToList();
 
-        var trainingData = _preparator.TakeDataChunkForMLProcessing(firstHalf);
-        var evaluationData = _preparator.TakeDataChunkForMLProcessing(secondHalf);
+        var trainingData = _preparator.TakeDataChunkForMLProcessing(firstHalf.Select(d => double.Round(d)).ToList());
+        var evaluationData = _preparator.TakeDataChunkForMLProcessing(secondHalf.Select(d => double.Round(d)).ToList());
         // Create ML.NET context
         var mlContext = new MLContext();
 
