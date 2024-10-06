@@ -1,7 +1,4 @@
-
-using SportsProcessor.Statistics;
-
-namespace SportsProcessor.Tests;
+namespace SportsProcessor.Statistics.Tests;
 
 public class StatsPreProcessorTests
 {
